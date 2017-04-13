@@ -16,3 +16,4 @@ all: poli auto sort iterator
 
 clean:
 	rm *.exe
+	rm *~
