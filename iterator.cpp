@@ -20,7 +20,7 @@ using namespace std;
 #include <iostream>
 #include <algorithm>
 
-void sum (int i) {  // function:
+void display (int i) {  // function:
   std::cout << ' ' << i;
 }
 
@@ -51,7 +51,10 @@ int main () {
   auto odds = std::count_if(begin(v), end(v), [](auto elem) {return elem % 2 != 0;});
   auto evens = std::count_if(begin(v), end(v), [](auto elem) {return elem % 2 == 0;});
 
-  cout << "Vector contains: " << v << "\n";
+  std::cout << "Vector contains:";
+  for_each (v.begin(), v.end(), display);
+  std::cout << '\n';
+  
   cout << "#Odds: " << odds << "\n";
   cout << "#Evens: " << evens << "\n";
 }
