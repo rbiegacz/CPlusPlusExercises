@@ -24,6 +24,7 @@ void display (int i) {  // function:
   std::cout << ' ' << i;
 }
 
+
 int main () {
   std::vector<int> v;
   std::vector<int>::iterator vIterator;
@@ -40,21 +41,15 @@ int main () {
   v.push_back(4);
   v.push_back(5);
   
-  //for(v = begin(v); v<= end(v); 
-  //    myIntVectorIterator != myIntVector.end();
-  //    myIntVectorIterator++)
-  //  {
-  //    cout<<*myIntVectorIterator<<" ";
-  //    //Should output 1 4 8
-  //  }
-
   auto odds = std::count_if(begin(v), end(v), [](auto elem) {return elem % 2 != 0;});
   auto evens = std::count_if(begin(v), end(v), [](auto elem) {return elem % 2 == 0;});
-
+  auto sum = std::accumulate(begin(v), end(v), 0);
+  
   std::cout << "Vector contains:";
   for_each (v.begin(), v.end(), display);
   std::cout << '\n';
   
   cout << "#Odds: " << odds << "\n";
   cout << "#Evens: " << evens << "\n";
+  cout << "#Sum: " << sum << "\n";
 }
