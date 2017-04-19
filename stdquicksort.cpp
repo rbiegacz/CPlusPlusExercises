@@ -18,20 +18,13 @@
 #include <algorithm>
 #include <iostream>
 
-struct Sum
-{
-  Sum(): sum{0} { }
-  void operator()(int n) { sum += n; }
-  int sum;
-};
-
 int main()
 {
-  std::vector<int> nums{-2, 99, 0, -743, 2, 4, 300, 400, 500, 3123, 24, 132, 118, 111565, 267};
-  int a[] = {-2, 99, 0, -743, 2, 4, 300, 400, 500, 3123, 24, 132, 118, 111565, 267};
+  int a[] = {-2, 99, 0, -743, 2, 4, 300, 400, 500, 3123, 24, 132, 118, 111565, 267, 201, 999, 998, 997, 996, 995, 994, 993, 992, 991, 1002, -348};
 
   constexpr std::size_t size = sizeof a / sizeof *a;
 
+  std::cout << "Inspired by http://en.cppreference.com/w/cpp/algorithm/qsort \n";
   std::cout << "before sorting...\n";
   for(int ai : a) {std::cout << ai << ' ';}
 

@@ -25,40 +25,53 @@ struct Sum
   int sum;
 };
 
-void standard_qsort (int *a)
+int partition(std::vector<int> *nums, int p, int r) // dzielimy tablice na dwie czesci, w pierwszej wszystkie liczby sa mniejsze badz rowne x, w drugiej wieksze lub rowne od x
 {
-  constexpr std::size_t size = sizeof a / sizeof *a;
+  int x = nums->at(p); /* let's choose the partition point in the vector */
+  int i = p, j = r, w; // i, j - indices in vector
   
-  std::qsort(a, size, sizeof *a, [](const void* a, const void* b) {
-      int arg1 = *static_cast<const int*>(a);
-      int arg2 = *static_cast<const int*>(b);
-      
-      if(arg1 < arg2) return -1;
-      if(arg1 > arg2) return 1;
-      return 0;
-      //  return (arg1 > arg2) - (arg1 < arg2); // possible shortcut
-      //  return arg1 - arg2; // erroneous shortcut (fails if INT_MIN is present)
+  while (true) 
+    {
+      while (nums->at(j) > x) // decrement until we find an element smaller than x
+	j--;
+      while (nums->at(i) < x) // increment until we find an element greater than x
+	i++;
+      if (i < j) // let's swap the numbers i < j
+	{
+	  w = nums->at(i);
+	  nums->at(i) = nums->at(j);
+	  nums->at(j) = w;
+	  i++;
+	  j--;
+	}
+      else // if i >= j then we return j as partition point 
+	return j;
     }
-    );
 }
 
+void quicksort(std::vector<int> *nums, int p, int r)
+{
+  if (p < r)
+    {
+      auto q = partition(nums,p,r); 
+      quicksort(nums, p, q); 
+      quicksort(nums, q+1, r);
+    }
+}
+ 
 int main()
 {
-  std::vector<int> nums{-2, 99, 0, -743, 2, 4, 300, 400, 500, 3123, 24, 132, 118, 111565, 267};
-  int a[] = {-2, 99, 0, -743, 2, 4, 300, 400, 500, 3123, 24, 132, 118, 111565, 267};
+  std::vector<int> nums{-2, 99, 0, -743, 2, 4, 300, 400, 500, 3123, 24, 132, 118, 111565, 267, 201, 999, 998, 997, 996, 995, 994, 993, 992, 991, 1002, -348};
   
-  for(int ai : a) {std::cout << ai << ' ';}
-  standard_qsort (a);
-  for(int ai : a) {std::cout << ai << ' ';}   
-  
-
   /* example of lambda function */
   auto display = [](const int& n) { std::cout << " " << n; };
 
-  std::cout << "before sorting..";
+  std::cout << "before sorting...";
   std::for_each(nums.begin(), nums.end(), display);
   std::cout << '\n';
 
+  quicksort(&nums, 0, nums.size()-1);
+  
   std::cout << "after sorting... ";
   std::for_each(nums.begin(), nums.end(), display);
   std::cout << '\n';
