@@ -25,9 +25,32 @@ struct Sum
   int sum;
 };
 
+void standard_qsort (int *a)
+{
+  constexpr std::size_t size = sizeof a / sizeof *a;
+  
+  std::qsort(a, size, sizeof *a, [](const void* a, const void* b) {
+      int arg1 = *static_cast<const int*>(a);
+      int arg2 = *static_cast<const int*>(b);
+      
+      if(arg1 < arg2) return -1;
+      if(arg1 > arg2) return 1;
+      return 0;
+      //  return (arg1 > arg2) - (arg1 < arg2); // possible shortcut
+      //  return arg1 - arg2; // erroneous shortcut (fails if INT_MIN is present)
+    }
+    );
+}
+
 int main()
 {
-  std::vector<int> nums{300, 400, 500, 3123, 24, 132, 118, 111565, 267};
+  std::vector<int> nums{-2, 99, 0, -743, 2, 4, 300, 400, 500, 3123, 24, 132, 118, 111565, 267};
+  int a[] = {-2, 99, 0, -743, 2, 4, 300, 400, 500, 3123, 24, 132, 118, 111565, 267};
+  
+  for(int ai : a) {std::cout << ai << ' ';}
+  standard_qsort (a);
+  for(int ai : a) {std::cout << ai << ' ';}   
+  
 
   /* example of lambda function */
   auto display = [](const int& n) { std::cout << " " << n; };
