@@ -3,8 +3,6 @@ GDB=-ggdb
 
 poli:
 	g++ $(GDB) -o poli.exe poli.cpp
-auto:
-	g++ -std=c++0x $(GDB) -o auto.exe auto.cpp
 quick:
 	g++ -std=c++0x $(GDB) -o quicksort.exe quicksort.cpp
 	g++ -std=c++0x $(GDB) -o stdquicksort.exe stdquicksort.cpp
@@ -14,7 +12,7 @@ bubble:
 iterator:
 	g++ -std=c++14 $(GDB) -o iterator.exe iterator.cpp
 
-all: poli auto quick iterator bubble
+all: poli quick iterator bubble
 
 .PHONY: poli auto all iterator bubble quick
 
